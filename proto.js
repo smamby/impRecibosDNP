@@ -10,7 +10,7 @@ class Persona {
         this._nombre = nombre;
         this._apellido = apellido;
         this._dni = dni;
-        this.cbu = cbu;
+        this._cbu = cbu;
         this._celular = celular;
         this._email = email;   
     }
