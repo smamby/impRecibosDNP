@@ -236,7 +236,7 @@ function crear(){
    console.log('contratos',contratos);
    
    guardarInfo();
-   imprimirContrato(nuevoContrato)
+   //imprimirContrato(nuevoContrato)
    alert(`Creaste un nuevo contrato en calle ${nuevoContrato.departamento._direccion} con el ID: ${nuevoContrato.id}`)
 }
 
