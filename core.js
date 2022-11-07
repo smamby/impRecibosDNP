@@ -6,6 +6,8 @@
 // require('./styles/style.css');
 // require('./proto').default;
 
+
+
 //const { on } = require("../../backend/CRUDServerDB2/src/models/contrato");
 
 // import ContratoService from './services/contratoService';
@@ -106,7 +108,7 @@ var imagenesInput = [];
 var contratoInput = [];
 var observacionesInput = "";
 var obligacionesInqInput = '';
-document.querySelector('#btn').addEventListener('click',ejecutar);
+//document.querySelector('#btn').addEventListener('click',ejecutar);
 
 function ejecutar(){
    //propietario
@@ -121,13 +123,13 @@ function ejecutar(){
    nombreIInput = document.getElementById("nombreI").value;
    apellidoIInput = document.getElementById("apellidoI").value;
    dniIInput = document.getElementById("dniI").value;
-   cbuPInput = document.getElementById("cbuI").value;
+   cbuIInput = document.getElementById("cbuI").value;
    celularIInput = document.getElementById("celularI").value;
    emailIInput = document.getElementById("emailI").value;   
    garantiaIInput = document.getElementById("garantiaI").value;
    //depto
    idInput = document.getElementById("id").value;
-   direccionInput = document.getElementById("direccion").value   ;
+   direccionInput = document.getElementById("direccion").value;
    inicioContratoInput = document.getElementById("inicioContrato").value;
    valor1Input = document.getElementById("valor1").value;
    valor2Input = document.getElementById("valor2").value;
@@ -143,7 +145,33 @@ function ejecutar(){
 var propietarioOb = {};
 var inquilinoOb = {};
 var depto = {};
-function crear(){
+function check(){
+   inicioContratoInput = document.getElementById("inicioContrato").value;
+   nombreIInput = document.getElementById("nombreI").value;
+   apellidoIInput = document.getElementById("apellidoI").value;
+   valor1Input = document.getElementById("valor1").value;
+   valor2Input = document.getElementById("valor2").value;
+   valor3Input = document.getElementById("valor3").value;
+   idInput = document.getElementById("id").value;
+   direccionInput = document.getElementById("direccion").value;
+   if(inicioContratoInput==''){
+      alert('Colocá la fecha de inicio de contrato')      
+      return false
+   } else if (valor1Input == '' && valor2Input == '' && valor3Input == '') {
+      alert('No colocaste ningun valor de alquiler')
+      return false
+   } else if (nombreIInput == '' || apellidoIInput == '') {
+      alert('No colocaste nombre o apellido del inquilino, es un dato necesario para el recibo, completalo')
+      return false
+   } else if (idInput == '' || direccionInput == '') {
+      alert('No colocaste la direccion del departamento ni el ID')      
+      return false
+   } else {
+      ejecutar()
+      return true 
+}}
+
+function crear(){   
    propietarioOb = new Propietario({
       nombre: nombrePInput,
       apellido:apellidoPInput,
@@ -163,17 +191,17 @@ function crear(){
       garantia:garantiaIInput,
    });
    depto = new Deptos({
-   id:idInput,
-   direccion:direccionInput,
-   inicioContrato: inicioContratoInput,
-   valor1: parseInt(valor1Input),
-   valor2: parseInt(valor2Input),
-   valor3: parseInt(valor3Input),
-   obligacionesInq: obligacionesInqInput,
-   observaciones: observacionesInput,
-   descripcion: descripcionInput,
-   imagenes: imagenesInput,
-   contrato: contratoInput,
+      id:idInput,
+      direccion:direccionInput,
+      inicioContrato: inicioContratoInput,
+      valor1: parseInt(valor1Input),
+      valor2: parseInt(valor2Input),
+      valor3: parseInt(valor3Input),
+      obligacionesInq: obligacionesInqInput,
+      observaciones: observacionesInput,
+      descripcion: descripcionInput,
+      imagenes: imagenesInput,
+      contrato: contratoInput,
    });
    console.log('depto',depto)
    console.log('propietarioOb',propietarioOb)
@@ -197,10 +225,10 @@ function crear(){
    contratos.push(nuevoContrato);
    console.log('contratos',contratos);
    console.log('nuevoContrato',nuevoContrato);
-
+   
    
    var empujar = [contratos[contratos.length-1].id,contratos[contratos.length-1].departamento._direccion]
-    
+   
    console.log('indice',empujar)
    indices.push(empujar)
    console.log('indices',indices)
@@ -211,6 +239,7 @@ function crear(){
    imprimirContrato(nuevoContrato)
    alert(`Creaste un nuevo contrato en calle ${nuevoContrato.departamento._direccion} con el ID: ${nuevoContrato.id}`)
 }
+
 
 //Guardar y cargar datos
 var indicesGuardados = [];

@@ -79,23 +79,23 @@ function impInq(){
         locadorPrint.innerHTML = itemEncontrado.propietario._nombre.toUpperCase()+' '+itemEncontrado.propietario._apellido.toUpperCase();
         //observaciones()
         console.log(dateShort)
-        const obsSugeridas = observaciones(dateShort)
-        observacionesPrint.innerHTML = obsSugeridas;
-        observacionesPrintProp.innerHTML = obsSugeridas;
-        console.log(obsSugeridas);
+        //const obsSugeridas = observaciones(dateShort)
+        observacionesPrint.innerHTML = observacionesInput;
+        observacionesPrintProp.innerHTML = observacionesInput;
+        //console.log(obsSugeridas);
         //observacionesinputProp
-        createObs();
-        console.log(observacionesInput)
-        //observacionesPrint.innerHTML = createObs();
-        function createObs() {
-            if (observacionesInput==""){
-                    observacionesPrint.innerHTML = obsSugeridas;
-                    observacionesPrintProp.innerHTML = obsSugeridas;
-                } else {
-                    observacionesPrint.innerHTML =  observacionesInput;
-                    observacionesPrintProp.innerHTML = observacionesInput;
-                }
-            } 
+        // createObs();
+        // console.log(observacionesInput)
+        // //observacionesPrint.innerHTML = createObs();
+        // function createObs() {
+        //     if (observacionesInput==""){
+        //             observacionesPrint.innerHTML = obsSugeridas;
+        //             observacionesPrintProp.innerHTML = obsSugeridas;
+        //         } else {
+        //             observacionesPrint.innerHTML =  observacionesInput;
+        //             observacionesPrintProp.innerHTML = observacionesInput;
+        //         }
+        //     } 
         // sumarDetalleInq()
         // sumarDetalleProp()
         sumarParaTotal = parseInt(valAlq) - detalleTotal;
@@ -191,10 +191,10 @@ function valorComision(valor){
 }
 
 
-function observaciones(mes){
-    var x = mes;
-    return `Recibí comprobantes de pago de expensas ordinarias(${x}), expensas extraordinarias(${x}), agua(${x}), gas(${x}), luz(${x}), ABL(${x})`
-}
+// function observaciones(mes){
+//     var x = mes;
+//     return `Recibí comprobantes de pago de expensas ordinarias(${x}), expensas extraordinarias(${x}), agua(${x}), gas(${x}), luz(${x}), ABL(${x})`
+// }
 
 function nuevo(){
     location.reload()
