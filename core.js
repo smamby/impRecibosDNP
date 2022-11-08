@@ -393,6 +393,15 @@ function levantarContrato(itemEncontrado){
 function editarContrato(itemEncontrado){
    if(confirm("Vas a sobre escribir todos los datos de este contrato estas segura, chequeaste todos los campos?")){
       let contrato = contratos[indiceItemEncontrado]
+      function calculoRenovacion(date){
+         return calculoFecha(date,3)
+      }
+      function calculoValor2(date){
+         return calculoFecha(date,1)
+      }
+      function calculoValor3(date){
+         return calculoFecha(date,2)        
+      }
       contrato.id = document.getElementById("id").value;
       contrato.propietario._nombre = document.getElementById("nombreP").value;
       contrato.propietario._apellido = document.getElementById("apellidoP").value;
@@ -414,6 +423,10 @@ function editarContrato(itemEncontrado){
       contrato.departamento._valor1 = document.getElementById("valor1").value;
       // propietarioInput = '';
       // inquilinoInput = '';
+      contrato.departamento._inicioP2 = calculoValor2(contrato.departamento._inicioContrato);      
+      contrato.departamento._inicioP3 = calculoValor3(contrato.departamento._inicioContrato);      
+      contrato.departamento._renovacion = calculoRenovacion(contrato.departamento._inicioContrato);
+
       contrato.departamento._observaciones = document.getElementById('observaciones').value;
       contrato.departamento._descripcion = document.getElementById('descripcion').value;
       contrato.departamento._obligacionesInq = document.getElementById('obligacionesInq').value;
