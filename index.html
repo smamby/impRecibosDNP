@@ -27,20 +27,8 @@
                 <button onclick="styleDark()" id="theme"><img id="img" src="./assets/btnThemeRandom.png" alt=""> </button>
                 <button onclick="randomColor()" id="randomColor"></button>
             </div>
-            <div id="imprimir">
-
-            </div>
-            <section class="cont-buscar"><p>Buscar contrato</p>
-                <div class="buscar">
-                    <input type="text" id="buscarInput" placeholder="id del contrato">
-                    <input type="button" value="buscar" onclick="buscar()">        
-                </div>    
-                <div class="buscar">
-                    <input type="text" id="buscarCalleInput" placeholder="Calle del Depto">
-                    <input type="button" value="buscar" onclick="buscarCalle()">
-                </div>
-            
-        </section>
+        </section>     
+        
         <form action="" id="operaciones">
         <div id="cabecera">
             <h4>Personas intervinientes</h4>
@@ -109,6 +97,19 @@
 
         <h1></h1>
         <!-- <h4>Contrato</h4> -->
+        <section class="cont-buscar"><p>Buscar contrato</p>
+            <div id="imprimir">
+        
+            </div>
+            <div class="buscar">
+                <input type="text" id="buscarInput" placeholder="id del contrato">
+                <input type="button" value="buscar" onclick="buscar()">        
+            </div>    
+            <div class="buscar">
+                <input type="text" id="buscarCalleInput" placeholder="Calle del Depto">
+                <input type="button" value="buscar" onclick="buscarCalle()">
+            </div>            
+        </section>
         
         </section>
     </div>
