@@ -179,8 +179,8 @@ function valorAlquiler(){
 }
 function valorComision(valor){
     var comSel = document.getElementById("comisionSelect").value;
-    let comAdmin = parseInt(valor)*0.05;    
-    let comRenov = parseInt(itemEncontrado.departamento._valor1)*36*0.0415;
+    let comAdmin = Math.round(parseInt(valor)*0.05);    
+    let comRenov = Math.round(parseInt(itemEncontrado.departamento._valor1)*36*0.0415);
     if(comSel === 'administracion'){
         return comAdmin;
     } else if (comSel === 'firma') {
