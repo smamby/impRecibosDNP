@@ -27,13 +27,34 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
+#impInq{
+    display: flex;
+}
+.conEmail {
+    display: flex;
+    height: 50px;
+    width: 50px;
+    background-color: var(--btnAlert);
+    color: var(--btnAlertFont);
+    border: 0px;
+    border-radius: 4px;
+    justify-content: end;
+    margin: 0px;
+}
+#mail{
+    height: 50px;
+    width: 50px;
+    background-color: var(--btnAlert);
+    color: var(--btnAlertFont);
+    visibility: visible;
+    text-decoration: none;
+}
 h2{
     margin-top: 12px;
     margin-bottom: 12px;
 }
 .cont-buscar{
     padding-left: 0px;
-    margin-bottom: 54px;
 }
 .inq{
     margin-top: 20px;
@@ -168,7 +189,6 @@ span{
     border: 0px;
     border-radius: 4px;
     justify-content: end;
-    margin
 }
 #depto{
     display: grid;
