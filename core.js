@@ -525,5 +525,19 @@ function imprimirBoleta(div){
    }
 }
 
+function sendEmail(div){
+      var mTo = ''
+      var a = document.getElementById("mail")
+      if(div === 'inbody-prop'){
+         mTo =  itemEncontrado.propietario._email
+         a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler&body=Adjuntamos%20liquidacion%20de%20alquiler`;
+      } else if(div === 'inbody-inq') {
+         mTo = itemEncontrado.inquilino._email
+         a.href = `mailto:${mTo}?subject=Recibo%20alquiler&body=Adjuntamos%20recibo%20de%20alquiler`;
+      }
+      console.log(mTo);      
+      window.location.href = a.href
+      
+   }
 
 cargarInfo();
