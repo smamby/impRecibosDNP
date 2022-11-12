@@ -27,14 +27,26 @@
                 <button onclick="styleDark()" id="theme"><img id="img" src="./assets/btnThemeRandom.png" alt=""> </button>
                 <button onclick="randomColor()" id="randomColor"></button>
             </div>
-        </section>     
-        
+            <div id="imprimir">
+
+            </div>
+            <section class="cont-buscar"><p>Buscar contrato</p>
+                <div class="buscar">
+                    <input type="text" id="buscarInput" placeholder="id del contrato">
+                    <input type="button" value="buscar" onclick="buscar()">        
+                </div>    
+                <div class="buscar">
+                    <input type="text" id="buscarCalleInput" placeholder="Calle del Depto">
+                    <input type="button" value="buscar" onclick="buscarCalle()">
+                </div>
+            
+        </section>
         <form action="" id="operaciones">
         <div id="cabecera">
             <h4>Personas intervinientes</h4>
             <input id="btnEditar" type="button" value="Editar" class="btnAlert" onclick="editarContrato()">
             <input id="btnBorrar" type="button" value="Borrar" class="btnAlert" onclick="borrarContrato()">
-            <button id="btn" class="btnAlert">Crear</button>
+            <input id="btn" type="button" class="btnAlert" value="Crear" onclick="check()">
         </div>
 
         <div id="personas" style="display: flex;">        
@@ -97,19 +109,6 @@
 
         <h1></h1>
         <!-- <h4>Contrato</h4> -->
-        <section class="cont-buscar"><p>Buscar contrato</p>
-            <div id="imprimir">
-        
-            </div>
-            <div class="buscar">
-                <input type="text" id="buscarInput" placeholder="id del contrato">
-                <input type="button" value="buscar" onclick="buscar()">        
-            </div>    
-            <div class="buscar">
-                <input type="text" id="buscarCalleInput" placeholder="Calle del Depto">
-                <input type="button" value="buscar" onclick="buscarCalle()">
-            </div>            
-        </section>
         
         </section>
     </div>
@@ -201,7 +200,7 @@
             </div>
             <div class="observaciones">
                 <p>Observaciones: <span id="observacionesPrint"></span></p>
-                <textarea name="observaciones" id="observacionesInput" cols="60" rows="2"></textarea>
+                <textarea name="observaciones" id="observacionesInput" cols="60" rows="2">Recibí los comprobantes de pago de </textarea>
                 <p>Por cuenta del Locador Sr./a: <span id="locadorPrint"></span></p>
                 <!-- <input type="text" name="locador" id="locador"> -->
             </div>
@@ -224,6 +223,7 @@
         <button id="imp" onclick="impInq()">Calcul.</button>
         <button id="imp" onclick="imprimirBoleta('inbody-inq')">Imp.</button>
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
+        <button id="mail" role="link" onclick="sendEmail('inbody-inq')">Email</button>
     </div>
     
     <div class="inbody-prop" id="inbody-prop">
@@ -248,9 +248,9 @@
                 <div class="cont-n cont-numero" id="numero">N° 0000<span id="numProp"></span>
                     <!-- <input type="number" name="numInput" id="numInput"> -->
                 </div>
-                <div class="cont-n cont-fecha" id="fecha">Fecha: <span id="dateProp">
+                <div class="cont-n cont-fecha" id="fecha">Fecha: <p id="dateProp">
                     <!-- <input type="date" name="dateInput" id="dateInputProp"> -->
-                </span></div>
+                </p></div>
             </div>
         </div>
     </header>
@@ -347,6 +347,7 @@
         <button id="imp" onclick="impInq()">Calcul.</button>
         <button id="imp" onclick="imprimirBoleta('inbody-prop')">Imp.</button>
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
+        <button id="mail" role="link" onclick="sendEmail('inbody-prop')">Email</button>
     </div>
     
     <!-- <script src="./main.js"></script> -->
