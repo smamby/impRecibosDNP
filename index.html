@@ -27,8 +27,20 @@
                 <button onclick="styleDark()" id="theme"><img id="img" src="./assets/btnThemeRandom.png" alt=""> </button>
                 <button onclick="randomColor()" id="randomColor"></button>
             </div>
-        </section>     
-        
+            <div id="imprimir">
+
+            </div>
+            <section class="cont-buscar"><p>Buscar contrato</p>
+                <div class="buscar">
+                    <input type="text" id="buscarInput" placeholder="id del contrato">
+                    <input type="button" value="buscar" onclick="buscar()">        
+                </div>    
+                <div class="buscar">
+                    <input type="text" id="buscarCalleInput" placeholder="Calle del Depto">
+                    <input type="button" value="buscar" onclick="buscarCalle()">
+                </div>
+            
+        </section>
         <form action="" id="operaciones">
         <div id="cabecera">
             <h4>Personas intervinientes</h4>
@@ -97,20 +109,8 @@
 
         <h1></h1>
         <!-- <h4>Contrato</h4> -->
-        <section class="cont-buscar"><p>Buscar contrato</p>
-            <div id="imprimir">
         
-            </div>
-            <div class="buscar">
-                <input type="text" id="buscarInput" placeholder="id del contrato">
-                <input type="button" value="buscar" onclick="buscar()">        
-            </div>    
-            <div class="buscar">
-                <input type="text" id="buscarCalleInput" placeholder="Calle del Depto">
-                <input type="button" value="buscar" onclick="buscarCalle()">
-            </div>            
         </section>
-
     </div>
     
     <div class="inbody-inq" id="inbody-inq" name="inbody-inq">
@@ -223,6 +223,7 @@
         <button id="imp" onclick="impInq()">Calcul.</button>
         <button id="imp" onclick="imprimirBoleta('inbody-inq')">Imp.</button>
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
+        <button id="mail" role="link" onclick="sendEmail('inbody-inq')">Email</button>
     </div>
     
     <div class="inbody-prop" id="inbody-prop">
@@ -346,6 +347,7 @@
         <button id="imp" onclick="impInq()">Calcul.</button>
         <button id="imp" onclick="imprimirBoleta('inbody-prop')">Imp.</button>
         <button id="nuevo" onclick="nuevo()">Nuevo</button>
+        <button id="mail" role="link" onclick="sendEmail('inbody-prop')">Email</button>
     </div>
     
     <!-- <script src="./main.js"></script> -->
