@@ -282,9 +282,10 @@ body {
 }
 .bodyInt{
     display: flex;
-    justify-content: center;
     flex-direction: column;
     border: solid black 2px;
+    margin: auto;
+    margin-top: 0px;
     padding: 4px 20px;
     font-weight:lighter;
 }
