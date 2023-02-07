@@ -2,9 +2,13 @@ var NUMERACION;
 var hoy = new Date().toLocaleDateString('sp-us',{day:"numeric",month:"numeric",year:"numeric"});
 const localDateFormat = ['sp-us',{day:"numeric",month:"numeric",year:"numeric"}]
 var sumarParaTotal = 0;
+//sumarParaTotal = new Intl.NumberFormat('de-DE').format(sumarParaTotal)
 var sumarParaTotalProp = 0;
+//sumarParaTotalProp = new Intl.NumberFormat('de-DE').format(sumarParaTotalProp)
 var valAlq = 0;
+//valAlq = new Intl.NumberFormat('de-DE').format(valAlq)
 var comi = 0;
+//comi = new Intl.NumberFormat('de-DE').format(comi)
 
 //inputs and prints
 function impInq(){
@@ -71,10 +75,12 @@ function impInq(){
         mesAlquilerPropPrint.innerHTML = dateShort.toUpperCase();
         
         valorAlquiler()
+        var valAlqImp = new Intl.NumberFormat('de-DE').format(valAlq)
+        var comiImp = new Intl.NumberFormat('de-DE').format(comi)
         console.log(valAlq,comi)
-        montoAlquilerPrint.innerHTML = "$ "+valAlq;
-        montoAlquilerPrintProp.innerHTML = "$ "+valAlq;
-        montoComision.innerHTML = "$ -"+comi;
+        montoAlquilerPrint.innerHTML = "$ "+valAlqImp+'.-';
+        montoAlquilerPrintProp.innerHTML = "$ "+valAlqImp+'.-';
+        montoComision.innerHTML = "$ -"+comiImp+'.-';
         //observacionesPrint.innerHTML = observacionesInput;
         locadorPrint.innerHTML = itemEncontrado.propietario._nombre.toUpperCase()+' '+itemEncontrado.propietario._apellido.toUpperCase();
         //observaciones()
@@ -98,12 +104,18 @@ function impInq(){
         //     } 
         // sumarDetalleInq()
         // sumarDetalleProp()
+        //detalleTotalImp = new Intl.NumberFormat('de-DE').format(detalleTotal)
+        //detalleTotalPropImp = new Intl.NumberFormat('de-DE').format(detalleTotalProp)
         sumarParaTotal = parseInt(valAlq) - detalleTotal;
         sumarParaTotalProp = parseInt(valAlq) - comi - detalleTotalProp;
-        totalDetalle.innerHTML = "$ "+sumarParaTotal;
-        totalFinal.innerHTML = sumarParaTotal;   
-        totalDetProp.innerHTML = sumarParaTotalProp;
-        totalFinalProp.innerHTML = sumarParaTotalProp;
+        var sumarParaTotalImp = new Intl.NumberFormat('de-DE').format(sumarParaTotal)
+        totalDetalle.innerHTML = "$ "+sumarParaTotalImp+'.-';
+        totalFinal.innerHTML = "$ "+sumarParaTotalImp+'.-';
+        var sumarParaTotalPropImp = new Intl.NumberFormat('de-DE').format(sumarParaTotalProp);
+        totalDetProp.innerHTML = sumarParaTotalPropImp+'.-';
+        totalFinalProp.innerHTML = sumarParaTotalPropImp+'.-';
+        console.log('totales',sumarParaTotalImp,sumarParaTotalPropImp)
+        console.log(valAlqImp,comiImp)
     } else {
         alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');        
         document.getElementById("buscarCalleInput").focus();
@@ -111,12 +123,17 @@ function impInq(){
 }
 var detalleTotal = 0;
 var detalleTotalProp = 0;
+var detalleTotalImp = new Intl.NumberFormat('de-DE').format(detalleTotal)
+var detalleTotalPropImp = new Intl.NumberFormat('de-DE').format(detalleTotalProp)
 // sumarParaTotal = parseInt(valAlq) - detalleTotal;
 // sumarParaTotalProp = parseInt(valAlq) - comi - detalleTotalProp;
 function sumarDetalleInq(nuevoMonto){
+    //nuevoMonto = new Intl.NumberFormat('de-DE').format(nuevoMonto)
     detalleTotal -= nuevoMonto;
+    console.log('detalleTotal',detalleTotal)
 }
 function sumarDetalleProp(nuevoMonto){
+    //nuevoMonto = new Intl.NumberFormat('de-DE').format(nuevoMonto)
     detalleTotalProp -= nuevoMonto;
 }
 
@@ -134,6 +151,7 @@ function insertarDetalles(){
     contNewDetProp.style.display="block";
     var contNewMontoProp = document.getElementById("cont-montosProp");
     contNewMontoProp.style.display="flex";
+    //var nuevoMontoInputImp = new Intl.NumberFormat('de-DE').format(nuevoMontoInput)
 
     var newItem = [nuevoGastoInput,nuevoMontoInput]
     sumarDetalleInq (newItem[1]);
@@ -142,9 +160,10 @@ function insertarDetalles(){
     document.getElementById("cont-detalle").value = '';
     document.getElementById("cont-montos").value = '';
     contNewDet.innerHTML += "- "+newItem[0]+"<br>";
-    contNewMonto.innerHTML += "$ "+newItem[1]+"<br>";
+    var newItemImp1 = new Intl.NumberFormat('de-DE').format(newItem[1])
+    contNewMonto.innerHTML += "$ "+newItemImp1+'.-'+"<br>";
     contNewDetProp.innerHTML += "- "+newItem[0]+"<br>";
-    contNewMontoProp.innerHTML += "$ "+newItem[1]+"<br>";    
+    contNewMontoProp.innerHTML += "$ "+newItemImp1+'.-'+"<br>";    
     document.getElementById("nuevoGasto").value = '';
     document.getElementById("nuevoMonto").value = '';
     document.getElementById("nuevoGasto").focus();
@@ -189,7 +208,6 @@ function valorComision(valor){
         alert('ocurrio algun error')
     }
 }
-
 
 // function observaciones(mes){
 //     var x = mes;

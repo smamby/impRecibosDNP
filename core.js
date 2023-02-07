@@ -392,7 +392,7 @@ function levantarContrato(itemEncontrado){
 }
 function editarContrato(itemEncontrado){
    if(confirm("Vas a sobre escribir todos los datos de este contrato estas segura, chequeaste todos los campos?")){
-      let contrato = contratos[indiceItemEncontrado]
+      let contrato = contratos[indiceItemEncontrado];
       function calculoRenovacion(date){
          return calculoFecha(date,3)
       }
@@ -426,7 +426,7 @@ function editarContrato(itemEncontrado){
       contrato.departamento._inicioP2 = calculoValor2(contrato.departamento._inicioContrato);      
       contrato.departamento._inicioP3 = calculoValor3(contrato.departamento._inicioContrato);      
       contrato.departamento._renovacion = calculoRenovacion(contrato.departamento._inicioContrato);
-
+      
       contrato.departamento._observaciones = document.getElementById('observaciones').value;
       contrato.departamento._descripcion = document.getElementById('descripcion').value;
       contrato.departamento._obligacionesInq = document.getElementById('obligacionesInq').value;
@@ -505,39 +505,58 @@ function imprimir(){
 function imprimirBoleta(div){
    if (itemEncontrado!=''){
       impInq();
+
       var ficha = document.getElementById(div);
       var wImp = window.open('','popimp');
       wImp.document.write(`<html><head><title>Print it!</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" type="text/css" href="./styles/imp.css"></head><body><div class="bodyInt">${ficha.innerHTML}</div></body></html>`);
+         
+     //document.appendChild(divEmail);
       
-      // wImp.onload = function () {
-      //    wImp.print();
-      // }
-      setTimeout(async() => {
+     setTimeout(async() => {
          wImp.print()         
       }, 100);
-      wImp.document.close();
+      //wImp.document.close();
       //wImp.close();
         
    } else {
       alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
       document.getElementById("buscarCalleInput").focus();
    }
+   
+   
 }
 
-function sendEmail(div){
+
+   // var mFrom = "propdelnor@gmail.com";
+   // var mTo = itemEncontrado;
+   // var reciboName = 'NegroDelInca.pdf';
+   // var a = document.getElementById("mail");
+   // a.href = `mailto:${mTo}
+   //     ?subject=Recibo%20alquiler
+   //     &body=Adjuntamos%20recibo%20de%20alquiler
+   //     &attachment=c:/${reciboName}`;
+   
+   //var a = document.getElementById("mail")
+   //a.addEventListener('click', sendEmail())
+   function sendEmail(div){
+      const opDate2 = {year:'numeric',month:'short'};
+      var dateVence = document.getElementById("vence").value;
+      // var yearDateVence = new Date(dateVence).getFullYear();
+      // var monthDateVence = parseInt(new Date(dateVence).getMonth())+1;
+      var dateVenceShort = new Date(dateVence).toLocaleString("sp-IN", opDate2)
       var mTo = ''
       var a = document.getElementById("mail")
       if(div === 'inbody-prop'){
          mTo =  itemEncontrado.propietario._email
-         a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler&body=Adjuntamos%20liquidacion%20de%20alquiler`;
+         a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20liquidacion%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
       } else if(div === 'inbody-inq') {
          mTo = itemEncontrado.inquilino._email
-         a.href = `mailto:${mTo}?subject=Recibo%20alquiler&body=Adjuntamos%20recibo%20de%20alquiler`;
+         a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
       }
       console.log(mTo);      
       window.location.href = a.href
       
    }
 
-cargarInfo();
+cargarInfo(); 
