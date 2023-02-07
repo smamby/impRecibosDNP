@@ -6,6 +6,8 @@
 // require('./styles/style.css');
 // require('./proto').default;
 
+
+
 //const { on } = require("../../backend/CRUDServerDB2/src/models/contrato");
 
 // import ContratoService from './services/contratoService';
@@ -106,7 +108,7 @@ var imagenesInput = [];
 var contratoInput = [];
 var observacionesInput = "";
 var obligacionesInqInput = '';
-document.querySelector('#btn').addEventListener('click',ejecutar);
+//document.querySelector('#btn').addEventListener('click',ejecutar);
 
 function ejecutar(){
    //propietario
@@ -121,13 +123,13 @@ function ejecutar(){
    nombreIInput = document.getElementById("nombreI").value;
    apellidoIInput = document.getElementById("apellidoI").value;
    dniIInput = document.getElementById("dniI").value;
-   cbuPInput = document.getElementById("cbuI").value;
+   cbuIInput = document.getElementById("cbuI").value;
    celularIInput = document.getElementById("celularI").value;
    emailIInput = document.getElementById("emailI").value;   
    garantiaIInput = document.getElementById("garantiaI").value;
    //depto
    idInput = document.getElementById("id").value;
-   direccionInput = document.getElementById("direccion").value   ;
+   direccionInput = document.getElementById("direccion").value;
    inicioContratoInput = document.getElementById("inicioContrato").value;
    valor1Input = document.getElementById("valor1").value;
    valor2Input = document.getElementById("valor2").value;
@@ -143,7 +145,33 @@ function ejecutar(){
 var propietarioOb = {};
 var inquilinoOb = {};
 var depto = {};
-function crear(){
+function check(){
+   inicioContratoInput = document.getElementById("inicioContrato").value;
+   nombreIInput = document.getElementById("nombreI").value;
+   apellidoIInput = document.getElementById("apellidoI").value;
+   valor1Input = document.getElementById("valor1").value;
+   valor2Input = document.getElementById("valor2").value;
+   valor3Input = document.getElementById("valor3").value;
+   idInput = document.getElementById("id").value;
+   direccionInput = document.getElementById("direccion").value;
+   if(inicioContratoInput==''){
+      alert('Colocá la fecha de inicio de contrato')      
+      return false
+   } else if (valor1Input == '' && valor2Input == '' && valor3Input == '') {
+      alert('No colocaste ningun valor de alquiler')
+      return false
+   } else if (nombreIInput == '' || apellidoIInput == '') {
+      alert('No colocaste nombre o apellido del inquilino, es un dato necesario para el recibo, completalo')
+      return false
+   } else if (idInput == '' || direccionInput == '') {
+      alert('No colocaste la direccion del departamento ni el ID')      
+      return false
+   } else {
+      ejecutar()
+      return true 
+}}
+
+function crear(){   
    propietarioOb = new Propietario({
       nombre: nombrePInput,
       apellido:apellidoPInput,
@@ -163,17 +191,17 @@ function crear(){
       garantia:garantiaIInput,
    });
    depto = new Deptos({
-   id:idInput,
-   direccion:direccionInput,
-   inicioContrato: inicioContratoInput,
-   valor1: parseInt(valor1Input),
-   valor2: parseInt(valor2Input),
-   valor3: parseInt(valor3Input),
-   obligacionesInq: obligacionesInqInput,
-   observaciones: observacionesInput,
-   descripcion: descripcionInput,
-   imagenes: imagenesInput,
-   contrato: contratoInput,
+      id:idInput,
+      direccion:direccionInput,
+      inicioContrato: inicioContratoInput,
+      valor1: parseInt(valor1Input),
+      valor2: parseInt(valor2Input),
+      valor3: parseInt(valor3Input),
+      obligacionesInq: obligacionesInqInput,
+      observaciones: observacionesInput,
+      descripcion: descripcionInput,
+      imagenes: imagenesInput,
+      contrato: contratoInput,
    });
    console.log('depto',depto)
    console.log('propietarioOb',propietarioOb)
@@ -197,10 +225,10 @@ function crear(){
    contratos.push(nuevoContrato);
    console.log('contratos',contratos);
    console.log('nuevoContrato',nuevoContrato);
-
+   
    
    var empujar = [contratos[contratos.length-1].id,contratos[contratos.length-1].departamento._direccion]
-    
+   
    console.log('indice',empujar)
    indices.push(empujar)
    console.log('indices',indices)
@@ -208,9 +236,10 @@ function crear(){
    console.log('contratos',contratos);
    
    guardarInfo();
-   imprimirContrato(nuevoContrato)
+   //imprimirContrato(nuevoContrato)
    alert(`Creaste un nuevo contrato en calle ${nuevoContrato.departamento._direccion} con el ID: ${nuevoContrato.id}`)
 }
+
 
 //Guardar y cargar datos
 var indicesGuardados = [];
@@ -363,7 +392,16 @@ function levantarContrato(itemEncontrado){
 }
 function editarContrato(itemEncontrado){
    if(confirm("Vas a sobre escribir todos los datos de este contrato estas segura, chequeaste todos los campos?")){
-      let contrato = contratos[indiceItemEncontrado]
+      let contrato = contratos[indiceItemEncontrado];
+      function calculoRenovacion(date){
+         return calculoFecha(date,3)
+      }
+      function calculoValor2(date){
+         return calculoFecha(date,1)
+      }
+      function calculoValor3(date){
+         return calculoFecha(date,2)        
+      }
       contrato.id = document.getElementById("id").value;
       contrato.propietario._nombre = document.getElementById("nombreP").value;
       contrato.propietario._apellido = document.getElementById("apellidoP").value;
@@ -385,6 +423,10 @@ function editarContrato(itemEncontrado){
       contrato.departamento._valor1 = document.getElementById("valor1").value;
       // propietarioInput = '';
       // inquilinoInput = '';
+      contrato.departamento._inicioP2 = calculoValor2(contrato.departamento._inicioContrato);      
+      contrato.departamento._inicioP3 = calculoValor3(contrato.departamento._inicioContrato);      
+      contrato.departamento._renovacion = calculoRenovacion(contrato.departamento._inicioContrato);
+      
       contrato.departamento._observaciones = document.getElementById('observaciones').value;
       contrato.departamento._descripcion = document.getElementById('descripcion').value;
       contrato.departamento._obligacionesInq = document.getElementById('obligacionesInq').value;
@@ -463,39 +505,58 @@ function imprimir(){
 function imprimirBoleta(div){
    if (itemEncontrado!=''){
       impInq();
+
       var ficha = document.getElementById(div);
       var wImp = window.open('','popimp');
       wImp.document.write(`<html><head><title>Print it!</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,500;0,700;1,200;1,600&display=swap" rel="stylesheet"><link rel="stylesheet" type="text/css" href="./styles/imp.css"></head><body><div class="bodyInt">${ficha.innerHTML}</div></body></html>`);
+         
+     //document.appendChild(divEmail);
       
-      // wImp.onload = function () {
-      //    wImp.print();
-      // }
-      setTimeout(async() => {
+     setTimeout(async() => {
          wImp.print()         
       }, 100);
-      wImp.document.close();
+      //wImp.document.close();
       //wImp.close();
         
    } else {
       alert('Cargá algun contrato, no cargaste ninguno. Dale despabilate!');
       document.getElementById("buscarCalleInput").focus();
    }
+   
+   
 }
 
-function sendEmail(div){
+
+   // var mFrom = "propdelnor@gmail.com";
+   // var mTo = itemEncontrado;
+   // var reciboName = 'NegroDelInca.pdf';
+   // var a = document.getElementById("mail");
+   // a.href = `mailto:${mTo}
+   //     ?subject=Recibo%20alquiler
+   //     &body=Adjuntamos%20recibo%20de%20alquiler
+   //     &attachment=c:/${reciboName}`;
+   
+   //var a = document.getElementById("mail")
+   //a.addEventListener('click', sendEmail())
+   function sendEmail(div){
+      const opDate2 = {year:'numeric',month:'short'};
+      var dateVence = document.getElementById("vence").value;
+      // var yearDateVence = new Date(dateVence).getFullYear();
+      // var monthDateVence = parseInt(new Date(dateVence).getMonth())+1;
+      var dateVenceShort = new Date(dateVence).toLocaleString("sp-IN", opDate2)
       var mTo = ''
       var a = document.getElementById("mail")
       if(div === 'inbody-prop'){
          mTo =  itemEncontrado.propietario._email
-         a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler&body=Adjuntamos%20liquidacion%20de%20alquiler`;
+         a.href = `mailto:${mTo}?subject=Liquidacion%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20liquidacion%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
       } else if(div === 'inbody-inq') {
          mTo = itemEncontrado.inquilino._email
-         a.href = `mailto:${mTo}?subject=Recibo%20alquiler&body=Adjuntamos%20recibo%20de%20alquiler`;
+         a.href = `mailto:${mTo}?subject=Recibo%20de%20alquiler%20-%20${dateVenceShort}&body=Adjuntamos%20recibo%20de%20alquiler.%0A%0AAtte.%0ADel%20Norte%20Propiedades.%0A%0A%0A`;
       }
       console.log(mTo);      
       window.location.href = a.href
       
    }
 
-cargarInfo();
+cargarInfo(); 
