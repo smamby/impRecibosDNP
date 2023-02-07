@@ -115,7 +115,11 @@ body {
 }
 #date{
     margin: 0px;
-    margin-left: 8px;
+    margin-left: 12px;
+}
+#dateProp{
+    margin: 0px;
+    margin-left: 12px;
 }
 .recibi p{
     margin-top: 12px;
